@@ -6,22 +6,29 @@
 
 // Time Complexity - O(n)
 
-function validAnagram(word1, word2) {
-  if (word1.length !== word2.length) return false;
-
+function validAnagram(x, y){
+  if (x.length !== y.length) {
+  return false;
+  }
+  
   const obj = {};
-
-  for (const char of word1) {
-    obj[char] = ++obj[char] || 1;
+  
+  for (let i = 0; i < x.length; i++){
+      let letter = x[i];
+    // if letter exists, increment, otherwise set to 1
+      obj[letter] ? obj[letter] += 1 : obj[letter] = 1;
   }
-
-  for (const char of word2) {
-    if (obj[char]) obj[char]--;
-    else return false;
+  
+  for (let i = 0; i < y.length; i++){
+      let letter = y[i];
+    // cant find letter or letter is zero then it is not an anagram
+      if (!obj[letter]){
+          return false;
+      } else {
+          obj[letter] -= 1;
+      }
   }
-
   return true;
 }
-
-console.log(validAnagram('anagram', 'nagaram')); // true
-console.log(validAnagram('rat', 'car')); // false
+console.log(validAnagram('anagram', 'nagaram'));
+console.log(validAnagram('rat', 'car'));
